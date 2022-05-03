@@ -1,0 +1,13 @@
+{
+    
+    "data_directory": "../data",
+
+    "colors": {
+        "lucid": "#3a90fe",
+        "nonlucid": "#a89008",
+        "active": "skyblue",
+        "sham": "thistle",
+        "control": "gainsboro"
+    }
+
+}
