@@ -40,26 +40,29 @@ For the `<data>/source/reports-4ratings.xls` file, an experimenter coded each dr
 ```bash
 # Generate the results directory structure that all files expect.
 # (raw data should already be in data/source)
-python setup-directories.py             # ==> data/derivatives/
-                                        # ==> data/results/
-                                        # ==> data/results/hires/
+python setup-directories.py         #=> data/derivatives/
+                                    #=> data/results/
+                                    #=> data/results/hires/
 
 # Go from raw json/txt data to csv. (It'll still be messy though.)
 # Saves separate files for user data, dream report data, and app event data.
-python convert-source2csv.py            # ==> data/derivatives/participants.csv
-                                        # ==> data/derivatives/trials.csv
-                                        # ==> data/derivatives/events.json
-                                        # ==> data/derivatives/motion.json
+python convert-source2csv.py        #=> data/derivatives/participants.csv
+                                    #=> data/derivatives/trials.csv
+                                    #=> data/derivatives/events.json
+                                    #=> data/derivatives/motion.json
 
 ###### ------------------------------------------------- ######
 ###### Manual step where someone coded the dream reports ######
 ###### ------------------------------------------------- ######
 
 # Some final cleanup before running analyses.
-python setup-merge+clean.py             # ==> data/derivatives/trials-clean.csv
-                                        # ==> data/derivatives/participants-clean.csv
+python setup-merge+clean.py         #=> data/derivatives/trials-clean.csv
+                                    #=> data/derivatives/participants-clean.csv
 
-### Characterize the dataset.
-python describe-demographics.py         # ==> data/results/describe-demographics.png
-python describe-samplesize.py           # ==> data/results/describe-samplesize.png
+# Characterize the dataset.
+python describe-demographics.py     #=> data/results/describe-demographics.png
+python describe-samplesize.py       #=> data/results/describe-samplesize.png
+
+# Inspect relationship between participant dream characteristics (among other things).
+python describe-pairplot.py         #=> data/results/describe-pairplot.png
 ```
