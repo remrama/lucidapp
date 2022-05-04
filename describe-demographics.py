@@ -1,20 +1,18 @@
 """Demographic visualizations. (just age)
 """
 import os
-import pandas as pd
 import utils
 import matplotlib.pyplot as plt
 utils.load_matplotlib_settings()
 
 
-#### Choose import/export paths.
+#### Choose export path.
 data_dir = utils.Config.data_directory
-import_fname = os.path.join(data_dir, "derivatives", "participants-clean.csv")
 export_fname = os.path.join(data_dir, "results", "describe-demographics.png")
 
 
 #### Load data.
-df = pd.read_csv(import_fname)
+df = utils.load_data("participants")
 
 
 #### Define parameters.

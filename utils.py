@@ -34,10 +34,10 @@ def load_data(which):
     import pandas as pd
     data_dir = Config.data_directory
     trial_fname = os.path.join(data_dir, "derivatives", "trials-clean.csv")
-    subject_fname = os.path.join(data_dir, "derivatives", "subjects-clean.csv")
+    subject_fname = os.path.join(data_dir, "derivatives", "participants-clean.csv")
     if which == "trials":
-        return pd.read_csv(trial_fname)
-    elif which == "subjects":
+        return pd.read_csv(trial_fname, parse_dates=["timeStart"])
+    elif which == "participants":
         return pd.read_csv(subject_fname)
     elif which == "merged":
         trial_df = pd.read_csv(trial_fname)

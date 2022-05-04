@@ -7,7 +7,6 @@ This big mess is designed to get a sense of:
 """
 import os
 import numpy as np
-import pandas as pd
 import utils
 
 import seaborn as sea # for color palette
@@ -15,14 +14,13 @@ import matplotlib.pyplot as plt
 utils.load_matplotlib_settings()
 
 
-#### Choose import/export paths.
+#### Choose export path.
 data_dir = utils.Config.data_directory
-import_fname = os.path.join(data_dir, "derivatives", "trials-clean.csv")
 export_fname = os.path.join(data_dir, "results", "describe-samplesize.png")
 
 
 #### Load data.
-df = pd.read_csv(import_fname, parse_dates=["timeStart"])
+df = utils.load_data("trials")
 
 
 #### Wrangle/reshape data.

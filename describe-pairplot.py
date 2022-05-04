@@ -19,14 +19,14 @@ import matplotlib.pyplot as plt
 utils.load_matplotlib_settings()
 
 
-#### Choose import/export paths.
+#### Choose export path.
 data_dir = utils.Config.data_directory
-import_fname = os.path.join(data_dir, "derivatives", "participants-clean.csv")
 export_fname = os.path.join(data_dir, "results", "describe-pairplot.png")
+
 
 #### Load and manipulate data
 
-df = pd.read_csv(import_fname)
+df = utils.load_data("participants")
 
 # some conversions for plotting histograms
 df["subjectCondition"] = pd.Categorical(df["subjectCondition"],
