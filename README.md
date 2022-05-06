@@ -65,4 +65,13 @@ python describe-samplesize.py       #=> data/results/describe-samplesize.png
 
 # Inspect relationship between participant dream characteristics (among other things).
 python describe-pairplot.py         #=> data/results/describe-pairplot.png
+
+# Generate session-level dataframe, with lucid success for each participant/session. And generate summary statistics.
+python wrangle-sessionlucidity.py   #=> data/derivatives/session_lucidity.csv
+                                    #=> data/results/analyze-firstnights_descr.csv
+
+# Run significance tests for first-sessions.
+python analyze-firstsessions.py     #=> data/results/analyze-firstsessions.csv
+# Visualize results for first-sessions.
+python plot-firstsessions.py          #=> data/results/analyze-firstsessions.png
 ```
