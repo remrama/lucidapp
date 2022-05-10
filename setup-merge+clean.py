@@ -255,7 +255,6 @@ participant_df = participant_df[participant_df["subjectID"].isin(trial_df["subje
 
 # Remove anyone under 18
 participant_df = participant_df[participant_df["age"]>=18]
-utils.logging.info("Removing one participant reporting age of 90000.")
 participant_df = participant_df[participant_df["age"].ne(90000)]
 
 # Remove early app versions.

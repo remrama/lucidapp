@@ -8,7 +8,7 @@ utils.load_matplotlib_settings()
 
 #### Choose export path.
 data_dir = utils.Config.data_directory
-export_fname = os.path.join(data_dir, "results", "describe-demographics.png")
+export_fname = os.path.join(data_dir, "results", "demographics.png")
 
 
 #### Load data.

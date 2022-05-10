@@ -1,0 +1,17 @@
+name: lapp
+
+dependencies:
+
+  - ipython                   # development
+  - conda-forge::tqdm         # progress bars
+  - conda-forge::osfclient    # uploading materials
+
+  - numpy                     # data analysis
+  - pandas                    # data analysis
+  - scipy                     # data analysis
+  - conda-forge::pingouin     # data analysis - statistics
+  - openpyxl                  # data analysis - read excel into pandas (maybe not?)
+  - xlrd                      # data analysis - read excel into pandas
+
+  - matplotlib                # data visualization
+  - conda-forge::colorcet     # data visualization - colormaps

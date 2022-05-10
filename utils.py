@@ -21,14 +21,6 @@ def load_config(as_object=True):
 # accessed easily with utils.Config within scripts.
 Config = load_config()
 
-import os
-import logging
-log_filename = os.path.join(Config.data_directory, "analysis.log")
-logging.basicConfig(filename=log_filename,
-    encoding="utf-8", level=logging.DEBUG,
-    format="%(levelname)-8s :: %(asctime)s :: %(filename)s :: %(message)s",
-    datefmt="%Y-%m-%d %H:%M:%S")
-
 def load_data(which):
     import os
     import pandas as pd

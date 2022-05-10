@@ -21,7 +21,7 @@ utils.load_matplotlib_settings()
 
 #### Choose export path.
 data_dir = utils.Config.data_directory
-export_fname = os.path.join(data_dir, "results", "describe-pairplot.png")
+export_fname = os.path.join(data_dir, "results", "correlations.png")
 
 
 #### Load and manipulate data
@@ -151,5 +151,5 @@ fig.align_labels()
 
 #### Export figure.
 plt.savefig(export_fname)
-utils.save_hires_copies(export_fname)
+# utils.save_hires_copies(export_fname)
 plt.close()

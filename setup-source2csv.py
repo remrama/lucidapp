@@ -225,12 +225,12 @@ for participant_string, data_string in zip(content_lines[::2], content_lines[1::
             if logname == "eventLog":
                 if participant_id_user_version in event_log_dict:
                     msg = f"subj {participant_id_user_version} has a new {logname} log, overwriting previous..."
-                    utils.logging.warning(msg)
+                    print(msg)
                 event_log_dict[participant_id_user_version] = entry_dict
             elif logname == "motionData":
                 if participant_id_user_version in motion_log_dict:
                     msg = f"subj {participant_id_user_version} has a new {logname} log, overwriting previous..."
-                    utils.logging.warning(msg)
+                    print(msg)
                 motion_log_dict[participant_id_user_version] = entry_dict
 
     # Save user dictionary the master list for later compiling into dataframe! :)

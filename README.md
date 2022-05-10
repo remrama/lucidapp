@@ -37,6 +37,9 @@ For the `<data>/source/reports-4ratings.xls` file, an experimenter coded each dr
 
 ### Linear files
 
+
+#### Prepping data
+
 ```bash
 # Generate the results directory structure that all files expect.
 # (raw data should already be in data/source)
@@ -55,23 +58,37 @@ python convert-source2csv.py        #=> data/derivatives/participants.csv
 ###### Manual step where someone coded the dream reports ######
 ###### ------------------------------------------------- ######
 
-# Some final cleanup before running analyses.
+# Merge all the data into one file.
 python setup-merge+clean.py         #=> data/derivatives/trials-clean.csv
                                     #=> data/derivatives/participants-clean.csv
+```
 
-# Characterize the dataset.
-python describe-demographics.py     #=> data/results/describe-demographics.png
-python describe-samplesize.py       #=> data/results/describe-samplesize.png
 
-# Inspect relationship between participant dream characteristics (among other things).
-python describe-pairplot.py         #=> data/results/describe-pairplot.png
+#### Describing data
 
-# Generate session-level dataframe, with lucid success for each participant/session. And generate summary statistics.
-python wrangle-sessionlucidity.py   #=> data/derivatives/session_lucidity.csv
-                                    #=> data/results/analyze-firstnights_descr.csv
+```bash
+# Export some images that characterize the dataset.
+python describe-samplesize.py       #=> data/results/samplesize.png
+python describe-demographics.py     #=> data/results/demographics.png
+python describe-correlations.py     #=> data/results/correlations.png
+```
 
-# Run significance tests for first-sessions.
-python analyze-firstsessions.py     #=> data/results/analyze-firstsessions.csv
-# Visualize results for first-sessions.
-python plot-firstsessions.py          #=> data/results/analyze-firstsessions.png
+
+#### Analyzing data
+
+```bash
+# Test for an overall increase in LD rates with app use.
+# Looks across all reports and all sessions (for those who have all 7).
+python analyze-app_effect.py    #=> data/results/app_effect-data.csv
+                                #=> data/results/app_effect-descriptives.csv
+                                #=> data/results/app_effect-stats.csv
+python plot-app_effect.py       #=> data/results/app_effect-plot.png
+
+# Test if the cue had an impact on induction success.
+# Looks across conditions for the first 2 sessions.
+python analyze-cue_effect.py    #=> data/results/cue_effect-data.csv
+                                #=> data/results/cue_effect-descriptives.csv
+                                #=> data/results/cue_effect-stats_within.csv
+                                #=> data/results/cue_effect-stats_between.csv
+python plot-cue_effect.py       #=> data/results/cue_effect-plot.png
 ```
