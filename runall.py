@@ -1,6 +1,7 @@
 import subprocess
 
 file_basenames = [
+    "setup-directories",
     "setup-source2csv",
     "setup-merge+clean",
     "describe-samplesize",
@@ -8,7 +9,7 @@ file_basenames = [
     "describe-correlations",
     "analyze-app_effect",
     "analyze-cue_effect",
-    # "plot-app_effect",
+    # "plot-app_effect", <--- doesn't exist yet
     "plot-cue_effect",
 ]
 

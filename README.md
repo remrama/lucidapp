@@ -2,7 +2,7 @@
 
 Analysis code for a project attempting to induce lucid dreams with a custom app.
 
-One warning about notation in all the code files. Each participant could use the app multiple times, and then could wakeup and fill out a dream report multiple times for each use. To stay consistent with the broader "participant/session/trial" language -- among other reasons -- a `session` refers to a single use of the app (typically a single night, but could be a nap) and a `trial` refers to a single dream report from within that `session` (typically one trial at the end of a session, but could wake up at multiple points and return to sleep).
+**One comment about notation used in all the code files.** Each participant could use the app multiple times, and then could wakeup and fill out a dream report multiple times for each use. To stay consistent with the broader "participant/session/trial" language -- among other reasons -- a `session` refers to a single use of the app (typically a single night, but could be a nap) and a `trial` refers to a single dream report from within that `session` (typically one trial at the end of a session, but could wake up at multiple points and return to sleep).
 
 - `participant` - app user
 - `session` - sleep session, overnight or nap
@@ -17,6 +17,8 @@ This analysis requires the following files to exist already:
 - `<data>/source/variables_legend.xlsx` - experimenter-generated file that holds info about all the variables in raw output
 
 Where the location of the `<data>` directory is specified in the `config.json` configuration file.
+
+All data files can be found on the [OSF project page](https://osf.io/tyc9w/).
 
 For the `<data>/source/reports-4ratings.xls` file, an experimenter coded each dream report as falling into one of these categories:
 - `lucid`
@@ -79,16 +81,18 @@ python describe-correlations.py     #=> data/results/correlations.png
 ```bash
 # Test for an overall increase in LD rates with app use.
 # Looks across all reports and all sessions (for those who have all 7).
-python analyze-app_effect.py    #=> data/results/app_effect-data.csv
-                                #=> data/results/app_effect-descriptives.csv
-                                #=> data/results/app_effect-stats.csv
-python plot-app_effect.py       #=> data/results/app_effect-plot.png
+python analyze-app_effect.py        #=> data/results/app_effect-data.csv
+                                    #=> data/results/app_effect-descriptives.csv
+                                    #=> data/results/app_effect-stats.csv
+python plot-app_effect.py           #=> data/results/app_effect-plot.png
 
 # Test if the cue had an impact on induction success.
 # Looks across conditions for the first 2 sessions.
-python analyze-cue_effect.py    #=> data/results/cue_effect-data.csv
-                                #=> data/results/cue_effect-descriptives.csv
-                                #=> data/results/cue_effect-stats_within.csv
-                                #=> data/results/cue_effect-stats_between.csv
-python plot-cue_effect.py       #=> data/results/cue_effect-plot.png
+python analyze-cue_effect.py        #=> data/results/cue_effect-data.csv
+                                    #=> data/results/cue_effect-descriptives.csv
+                                    #=> data/results/cue_effect-stats_within.csv
+                                    #=> data/results/cue_effect-stats_between.csv
+python plot-cue_effect.py           #=> data/results/cue_effect-plot.png
 ```
+
+**Note you can run all this at once with `runall.py`**

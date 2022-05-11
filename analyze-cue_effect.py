@@ -49,46 +49,33 @@ data["lucidSelfRating"] = data["lucidSelfRating"].ge(1).astype(int)
 data = data[data["sessionID"].isin([1,2])]
 data = data[data["subjectID"].duplicated(keep=False)]
 
-# Get a single difference score for each participant
-# that represents their change from session 1 -> session 2.
+# Flip out to a table with the 2 sessions as columns
 data = data.pivot(columns="sessionID", values="lucidSelfRating",
         index=["subjectCondition", "subjectID"]
-    ).diff(axis=1)[2].rename("sessionChange"
-    ).reset_index(drop=False)
+    ).rename(columns={1: "session1", 2: "session2"})
 
-descriptives = data.groupby("subjectCondition"
-    )["sessionChange"].agg(["count", "mean", "sem"])
+# Get a single difference score for each participant
+# that represents their change from session 1 -> session 2.
+data["sessionChange"] = data["session2"] - data["session1"]
 
-
+descriptives = data.groupby("subjectCondition",
+    )[["session1", "session2", "sessionChange"]
+    ].agg(["count", "mean", "std", "sem"]
+    ).T.reset_index().rename(columns={"level_1": "stat"})
 
 
 
 ################# Run statistics.
 
-### Within-condition effects
-### (Do LD rates change from 1->2 within each condition?)
-
-# ## Cochran/anova version
-# stats_list = []
-# for c, c_data in data.groupby("subjectCondition"):
-#     c_stats = pg.cochran(data=c_data, dv="lucidSelfRating", within="sessionID", subject="subjectID")
-#     c_stats.insert(0, "condition", c)
-#     stats_list.append(c_stats)
-# stats_within = pd.concat(stats_list)
-
-# ## Wilcoxon/ttest version
-# # !!! Sample too small
-# stats = pg.pairwise_ttests(data=data, between="subjectCondition",
-#     within="sessionID", dv="lucidSelfRating", subject="subjectID",
-#     within_first=False, parametric=False).loc[4:]
-
-## Bootstrap version
 def pval_from_distribution(dist):
     pct_below = np.mean(dist < 0)
     pct_above = np.mean(dist > 0)
     min_pct = np.min([pct_below, pct_above])
     pval = 2 * min_pct
     return pval
+
+### Within-condition effects
+### (Do LD rates change from 1->2 within each condition?)
 
 stats_list = []
 distributions = {} # for later between stats
@@ -107,15 +94,9 @@ for c, ser in data.groupby("subjectCondition")["sessionChange"]:
     distributions[c] = distr
 stats_within = pd.DataFrame(stats_list)
 
-
 ### Between-condition effects
 ### (Do LD rates change from 1->2 more or less across conditions?)
 
-# ## Wilcoxon/ttest version
-# stats_between = pg.pairwise_ttests(data=data, between="subjectCondition",
-#     dv="sessionChange", subject="subjectID", parametric=False)
-
-## Bootstrap version
 stats_list = []
 for c1, c2 in itertools.combinations(["active", "sham", "control"], 2):
     differences = distributions[c1] - distributions[c2]
@@ -132,6 +113,6 @@ stats_between = pd.DataFrame(stats_list)
 
 ########## Export everything.
 data.to_csv(export_fname_data, index=False, na_rep="NA")
-descriptives.to_csv(export_fname_descr, index=True, na_rep="NA", float_format="%.3f")
+descriptives.to_csv(export_fname_descr, index=False, na_rep="NA", float_format="%.3f")
 stats_within.to_csv(export_fname_stats_within, index=False, float_format="%.5f")
 stats_between.to_csv(export_fname_stats_between, index=False, float_format="%.5f")
