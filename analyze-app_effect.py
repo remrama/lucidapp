@@ -66,7 +66,7 @@ data = data.rename(columns={7: "app", "LDF": "baseline"})
 ####### Run statistics
 a = data["baseline"].values
 b = data["app"].values
-stats = pg.wilcoxon(a, b)
+stats = pg.wilcoxon(a, b).rename_axis("test")
 
 stats.loc["Wilcoxon", "mean-n"] = len(a) # same as b
 stats.loc["Wilcoxon", "mean-app"] = np.mean(b)
@@ -74,5 +74,5 @@ stats.loc["Wilcoxon", "mean-app"] = np.mean(b)
 
 
 ################## Export session-level data, descriptives, and stats.
-data.to_csv(export_fname_data, index=True, na_rep="NA")
+data.to_csv(export_fname_data, index=False, na_rep="NA")
 stats.to_csv(export_fname_stats, index=True, float_format="%.4f")

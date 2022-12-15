@@ -71,8 +71,8 @@ def load_matplotlib_settings():
     """
     from matplotlib.pyplot import rcParams
     # rcParams["figure.dpi"] = 600
+    # rcParams["interactive"] = True
     rcParams["savefig.dpi"] = 600
-    rcParams["interactive"] = True
     rcParams["figure.constrained_layout.use"] = True
     rcParams["font.family"] = "Times New Roman"
     # rcParams["font.sans-serif"] = "Arial"

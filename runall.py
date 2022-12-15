@@ -9,7 +9,7 @@ file_basenames = [
     "describe-correlations",
     "analyze-app_effect",
     "analyze-cue_effect",
-    # "plot-app_effect", <--- doesn't exist yet
+    "plot-app_effect",
     "plot-cue_effect",
 ]
 
