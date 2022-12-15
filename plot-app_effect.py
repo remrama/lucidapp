@@ -91,7 +91,7 @@ if not asterisks and pval < .1:
 draw_sig_bar(ax, bar_xvals[0], bar_xvals[1], yloc, asterisks)
 
 
-# #### Export
-# plt.savefig(export_fname)
-# utils.save_hires_copies(export_fname)
-# plt.close()
+#### Export
+plt.savefig(export_fname)
+utils.save_hires_copies(export_fname)
+plt.close()
