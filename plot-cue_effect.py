@@ -34,6 +34,11 @@ HATCH_STYLES = {
 palette = utils.load_config(as_object=False)["colors"]
 colors = [ palette[cond] for cond in CONDITION_ORDER ]
 hatches = [ HATCH_STYLES[cond] for cond in CONDITION_ORDER ]
+labels = {
+    "control": "noe cue",
+    "sham": "untrained cue",
+    "active": "TLR cue",
+}
 
 
 #### Extract data to plot.
@@ -64,7 +69,7 @@ ax.grid(True, axis="y", which="both", clip_on=False)
 for side, spine in ax.spines.items():
     if side != "left":
         spine.set_visible(False)
-ax.tick_params(axis="both", which="both",
+ax.tick_params(axis="both", which="both", direction="out",
     labelbottom=False, top=False, right=False, bottom=False)
 ax.yaxis.set(
     major_locator=plt.MultipleLocator(.2),
@@ -122,8 +127,7 @@ for (c1, c2), row in between_df.iterrows():
 #### Legend
 handles = [ plt.matplotlib.patches.Patch(
         edgecolor="black", linewidth=.3,
-        facecolor=palette[c], hatch=HATCH_STYLES[c],
-        label=f"{c} cue"
+        facecolor=palette[c], hatch=HATCH_STYLES[c], label=labels[c],
     ) for c in CONDITION_ORDER ]
 legend = ax.legend(handles=handles,
     # title="Cue following active cue",

@@ -1,4 +1,4 @@
-"""Graph dr.
+"""Graph change in lucid dream frequency over time, collapsed across all conditions.
 """
 import os
 import numpy as np
