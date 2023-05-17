@@ -35,7 +35,7 @@ palette = utils.load_config(as_object=False)["colors"]
 colors = [ palette[cond] for cond in CONDITION_ORDER ]
 hatches = [ HATCH_STYLES[cond] for cond in CONDITION_ORDER ]
 labels = {
-    "control": "noe cue",
+    "control": "no cue",
     "sham": "untrained cue",
     "active": "TLR cue",
 }
