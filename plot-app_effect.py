@@ -31,7 +31,7 @@ DOT_KWARGS = dict(linewidth=0.5, color="black",
 
 #### Extract data to plot.
 xticks = np.array([-1, 1, 2, 3, 4, 5, 6, 7])
-xticklabels = ["0\n(Prior 7 days)", "1", "2", "3", "4", "5", "6", "7"]
+xticklabels = ["Prior\nweek", "1", "2", "3", "4", "5", "6", "7"]
 bar_xvals = xticks[[0, -1]]
 bar_yvals = data[["baseline", "app"]].mean()
 bar_evals = data[["baseline", "app"]].sem()
@@ -39,7 +39,7 @@ dot_xvals = xticks[1:]
 dot_yvals = data[["1", "2", "3", "4", "5", "6", "app"]].mean()
 dot_evals = data[["1", "2", "3", "4", "5", "6", "app"]].sem()
 
-#### Draw bargraph.
+#### Draw bar graph.
 
 # open figure
 fig, ax = plt.subplots(figsize=FIGSIZE)
@@ -51,14 +51,14 @@ bars = ax.bar(bar_xvals, bar_yvals, yerr=bar_evals, **BAR_KWARGS)
 ax.errorbar(dot_xvals, dot_yvals, yerr=dot_evals, **DOT_KWARGS)
 
 # aesthetics
-ylabel = "Total number of LDs\nper participant"
+ylabel = "Lucid dreams"
 ax.set_ylabel(ylabel, labelpad=4)
 # ax.set_xlim(min(xvals)-1, max(xvals)+1)
 ax.margins(0.1)
 ax.set_xticks(xticks)
 ax.set_xticklabels(xticklabels)
 ax.set_ylim(0, 1.5)
-ax.set_xlabel("Number of days app used")
+ax.set_xlabel("Nights", x=0.6, labelpad=-2)
 ax.grid(True, axis="y", which="major", clip_on=False)
 ax.spines[["top", "right"]].set_visible(False)
 ax.tick_params(axis="both", which="both", direction="out", top=False, right=False)
