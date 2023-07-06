@@ -51,7 +51,7 @@ python setup-directories.py         #=> data/derivatives/
 
 # Go from raw json/txt data to csv. (It'll still be messy though.)
 # Saves separate files for user data, dream report data, and app event data.
-python convert-source2csv.py        #=> data/derivatives/participants.csv
+python setup-source2csv.py          #=> data/derivatives/participants.csv
                                     #=> data/derivatives/trials.csv
                                     #=> data/derivatives/events.json
                                     #=> data/derivatives/motion.json
