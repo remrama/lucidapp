@@ -3,7 +3,10 @@ by comparing a 7-session total against a baseline week.
 """
 import os
 import numpy as np
+import pandas as pd
 import pingouin as pg
+
+from scipy.stats import sem
 
 import utils
 
@@ -18,6 +21,7 @@ export_fname_data = os.path.join(export_dir, f"{basename}-data.csv")
 # export_fname_descr = os.path.join(export_dir, f"{basename}-descriptives.csv")
 export_fname_stats = os.path.join(export_dir, f"{basename}-stats.csv")
 # export_fname_plot = os.path.join(export_dir, f"{basename}-plot.csv")
+export_fname_timedesc = os.path.join(export_dir, f"{basename}-timedesc.csv")
 
 
 
@@ -62,6 +66,17 @@ data = data.rename(columns={7: "app", "LDF": "baseline"})
 #     ].agg(["count", "mean"]).round(3).T.unstack(level=1)
 
 
+####### Get number of days between first and 7th app use, for final sample.
+final_subs = data["subjectID"].unique()
+subset = df[df["subjectID"].isin(final_subs)]
+subset = subset[subset["sessionID"].isin([1,7])]
+subset = subset[~subset.duplicated(subset=["subjectID", "sessionID"], keep="first")]
+subset = subset[["subjectID", "sessionID", "timeStart"]].reset_index(drop=True)
+subset["timeStart"] = pd.to_datetime(subset["timeStart"])
+subset = subset.pivot(index="subjectID", columns="sessionID", values="timeStart")
+timediff = subset[7] - subset[1]
+timediff_desc = timediff.describe()
+timediff_desc.to_csv(export_fname_timedesc, index=True, header=False)
 
 ####### Run statistics
 a = data["baseline"].values
