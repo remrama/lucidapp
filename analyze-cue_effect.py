@@ -3,6 +3,7 @@ by comparing lucidity across conditions for the first few nights.
 """
 import os
 import itertools
+import json
 import numpy as np
 import pandas as pd
 import pingouin as pg
@@ -21,6 +22,7 @@ export_fname_descr = os.path.join(export_dir, f"{basename}-descriptives.csv")
 export_fname_stats_within = os.path.join(export_dir, f"{basename}-stats_within.csv")
 export_fname_stats_between = os.path.join(export_dir, f"{basename}-stats_between.csv")
 export_fname_potentialn = os.path.join(export_dir, f"{basename}-potentialn.txt")
+export_fname_potentialn_increasing = os.path.join(export_dir, f"{basename}-potentialn_increasing.json")
 
 
 
@@ -52,6 +54,16 @@ data = df.groupby(["subjectCondition", "subjectID", "sessionID"], as_index=False
 
 # Reduce number of LDs to simple yes/no (1/0) lucidity. (doesn't change much, only a few have >1)
 data["lucidSelfRating"] = data["lucidSelfRating"].ge(1).astype(int)
+
+# Side quest, get number of participants who had some form of dream recall at increasing n_nights.
+ns = {}
+for i in range(1, 8):
+    d = data[data["sessionID"].isin(range(1, i+1))]
+    d = d[d["subjectID"].isin((d["subjectID"].value_counts()==i).loc[lambda x: x].index.tolist())]
+    n = d["subjectID"].nunique()
+    ns[i] = n
+with open(export_fname_potentialn_increasing, "w", encoding="utf-8") as f:
+    json.dump(ns, f, indent=4)
 
 # Reduce to first 2 sessions (dropping anyone without both).
 data = data[data["sessionID"].isin([1,2])]
