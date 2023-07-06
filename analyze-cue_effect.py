@@ -20,13 +20,21 @@ export_fname_data = os.path.join(export_dir, f"{basename}-data.csv")
 export_fname_descr = os.path.join(export_dir, f"{basename}-descriptives.csv")
 export_fname_stats_within = os.path.join(export_dir, f"{basename}-stats_within.csv")
 export_fname_stats_between = os.path.join(export_dir, f"{basename}-stats_between.csv")
-# export_fname_plot = os.path.join(export_dir, f"{basename}-plot.csv")
+export_fname_potentialn = os.path.join(export_dir, f"{basename}-potentialn.txt")
 
 
 
 ################################# Load and wrangle data.
 
 df = utils.load_data("merged")
+
+# Preliminary q: how many participants used app for 2 nights (1 and 2)?
+subset = df[df["sessionID"].isin([1,2])]
+subset = subset[~subset.duplicated(subset=["subjectID", "sessionID"], keep="first")]
+potential_n = subset["subjectID"].value_counts().loc[lambda x: x==2].index.size
+potential_n = f"{potential_n} participants completed both sessions 1 and 2."
+with open(export_fname_potentialn, "w", encoding="utf-8") as f:
+    f.write(potential_n)
 
 # Remove dream reports that are "junk".
 df = df[df["experimenterRating"].isin(["white", "non-lucid", "semi-lucid", "lucid"])]
